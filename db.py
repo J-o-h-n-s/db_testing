@@ -42,20 +42,6 @@ def execute_query(connection, query, fetch=False):
         cursor.close()
 
 
-def create_users_table(connection):
-    create_table_query = """
-        CREATE TABLE IF NOT EXISTS users (
-            id INT AUTO_INCREMENT,
-            name VARCHAR(255) NOT NULL,
-            user_name VARCHAR(255) NOT NULL UNIQUE,
-            email VARCHAR(255) NOT NULL UNIQUE,
-            password VARCHAR(255) NOT NULL,
-            PRIMARY KEY (id)
-        ) ENGINE = InnoDB;
-    """
-    execute_query(connection, create_table_query)
-
-
 def verify_password(stored_password, provided_password):
     return bcrypt.checkpw(
         provided_password.encode("utf-8"), stored_password.encode("utf-8")
@@ -118,7 +104,6 @@ def do_login(connection, user_name=None):
 def main():
     connection = create_connection(*get_env())
     if connection:
-        create_users_table(connection)
         do_login(connection)
         connection.close()
         print("MySQL connection is closed")
