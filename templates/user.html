@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>User Page</title>
+  </head>
+  <body>
+    <h1>Welcome, {{ user_name }}!</h1>
+    <a href="{{ url_for('logout') }}">Logout</a>
+
+    {% if message %}
+    <script>
+      alert("{{ message }}");
+    </script>
+    {% endif %}
+  </body>
+</html>

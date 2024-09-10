@@ -61,7 +61,7 @@ def register_user(connection, user_name):
         email_inp = input("Enter your email: ")
         pass
     insert_user_query = f"""
-        INSERT INTO users (name, user_name, email, password)
+        INSERT INTO users (name, user_name, email, hashed_password)
         VALUES ('{name_inp}', '{user_name}', '{email_inp}', '{hashed_password.decode("utf-8")}')
     """
     execute_query(connection, insert_user_query)
@@ -90,7 +90,7 @@ def do_login(connection, user_name=None):
 
     login_password = getpass.getpass("Enter your password: ")
     select_password_query = (
-        f"SELECT password FROM users WHERE user_name = '{user_name}';"
+        f"SELECT hashed_password FROM users WHERE user_name = '{user_name}';"
     )
     stored_password = execute_query(connection, select_password_query, fetch=True)[0][0]
 
